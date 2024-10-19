@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superhero Search Results</title>
+    <link rel="stylesheet" href="/css/results.css">
+</head>
+<body>
+
+<header>
+    <h1>Search Results</h1>
+</header>
+
+<div class="grid-container">
+    <% foundCharacters.forEach(character => { %>
+        <div class="mini-card" onclick="window.location.href='/character/<%= character.index %>'"> <!-- Use character.index instead of character.id -->
+            <img src="<%= character.images.lg %>" alt="<%= character.name %>">
+            <h2><%= character.name %></h2>
+        </div>
+    <% }) %>
+</div>
+
+</body>
+</html>
