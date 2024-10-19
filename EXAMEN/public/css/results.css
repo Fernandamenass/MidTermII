@@ -1,9 +1,4 @@
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
+
 .mini-card {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
@@ -25,4 +20,24 @@
 .mini-card h2 {
     margin: 10px 0;
     font-size: 18px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #343a40;
+    background-image: url('/img/FondoAzul.avif');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+.contenedor-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

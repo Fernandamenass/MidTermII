@@ -8,10 +8,10 @@ app.use(express.static("public"));
 app.engine("ejs", require("ejs").renderFile);
 app.set("view engine", "ejs");
 
-let characters = []; // Aquí se guardan los personajes obtenidos de la API
+let characters = [];
 let currentIndex = 0;
 
-// Función para cargar los personajes de la API
+// Cargar personajes desde el link
 function loadCharacters(callback) {
     const url = 'https://akabab.github.io/superhero-api/api/all.json';
     https.get(url, (response) => {
@@ -33,7 +33,6 @@ function loadCharacters(callback) {
     });
 }
 
-// Ruta principal
 app.get('/', (req, res) => {
     if (characters.length === 0) {
         return res.send('No characters found. Please try again later.');
@@ -42,32 +41,32 @@ app.get('/', (req, res) => {
     res.render("home", { character });
 });
 
-// Navegación (Previous)
+// Previous
 app.get('/character/prev', (req, res) => {
     if (characters.length === 0) {
         return res.send('No characters found.');
     }
-    currentIndex = (currentIndex - 1 + characters.length) % characters.length; // Retrocede y va al final
+    currentIndex = (currentIndex - 1 + characters.length) % characters.length;
     const character = characters[currentIndex];
     res.render("home", { character });
 });
 
-// Navegación (Next)
+// Next
 app.get('/character/next', (req, res) => {
     if (characters.length === 0) {
         return res.send('No characters found.');
     }
-    currentIndex = (currentIndex + 1) % characters.length; // Avanza y regresa al inicio
+    currentIndex = (currentIndex + 1) % characters.length;
     const character = characters[currentIndex];
     res.render("home", { character });
 });
 
-// Ruta para ver un personaje por su ID
+//Buscar personaje por su id
 app.get('/character/:id', (req, res) => {
     const id = parseInt(req.params.id);
 
     if (id >= 0 && id < characters.length) {
-        currentIndex = id; // Actualiza el índice actual al personaje seleccionado
+        currentIndex = id; // Actualiza el índice
         const character = characters[currentIndex];
         res.render("home", { character });
     } else {
@@ -79,16 +78,15 @@ app.get('/character/:id', (req, res) => {
     }
 });
 
-// Búsqueda de superhéroe por nombre
+// Busqueda superheroes
 app.post('/search', (req, res) => {
     const searchName = req.body.name.toLowerCase();
     const foundCharacters = characters.filter(c => c.name.toLowerCase().includes(searchName));
 
-    // Adding index to found characters
     const charactersWithIndex = foundCharacters.map((char, index) => {
         return {
             ...char,
-            index: characters.findIndex(c => c.id === char.id) // Use the original characters array to find the correct index
+            index: characters.findIndex(c => c.id === char.id) // Usa el array para encontrar el index
         };
     });
 
