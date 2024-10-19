@@ -1,0 +1,51 @@
+<%- include("Partials/header"); -%>
+<link rel="stylesheet" href="/css/style.css">
+
+<div class="card mt-4">
+    <% if (character.images && character.images.md) { %>
+        <img src="<%= character.images.md %>" class="card-img-top" alt="<%= character.name %>">
+    <% } else { %>
+        <img src="/images/default-hero.png" class="card-img-top" alt="No Image Available">
+    <% } %>
+    <div class="card-body">
+        <h5 class="card-title"><%= character.name || "Unknown Hero" %></h5>
+        <p class="card-text"><strong>ID:</strong> <%= character.id %></p>
+        <p class="card-text"><strong>Full Name:</strong> <%= character.biography && character.biography.fullName ? character.biography.fullName : "N/A" %></p>
+        <p class="card-text"><strong>Power Stats:</strong> 
+            <%= character.powerstats 
+                ? Object.entries(character.powerstats).map(([key, value]) => `${key}: ${value}`).join(', ') 
+                : "N/A" 
+            %>
+        </p>
+        <p class="card-text"><strong>Place of Birth:</strong> <%= character.biography && character.biography.placeOfBirth ? character.biography.placeOfBirth : "N/A" %></p>
+        <p class="card-text"><strong>Small Biography:</strong> <%= character.biography && character.biography.alignment ? character.biography.alignment : "N/A" %></p>
+        <p class="card-text"><strong>Aliases:</strong> 
+            <% if (character.biography && character.biography.aliases && character.biography.aliases.length > 0) { %>
+                <%= character.biography.aliases.join(', ') %>
+            <% } else { %>
+                N/A
+            <% } %>
+        </p>
+        <p class="card-text"><strong>Gender:</strong> <%= character.appearance && character.appearance.gender ? character.appearance.gender : "N/A" %></p>
+        <p class="card-text"><strong>Race:</strong> <%= character.appearance && character.appearance.race ? character.appearance.race : "N/A" %></p>
+        <p class="card-text"><strong>Height:</strong> 
+            <% if (character.appearance && character.appearance.height && character.appearance.height.length > 0) { %>
+                <%= character.appearance.height.join(', ') %>
+            <% } else { %>
+                N/A
+            <% } %>
+        </p>
+        <p class="card-text"><strong>Weight:</strong> 
+            <% if (character.appearance && character.appearance.weight && character.appearance.weight.length > 0) { %>
+                <%= character.appearance.weight.join(', ') %>
+            <% } else { %>
+                N/A
+            <% } %>
+        </p>
+        <p class="card-text"><strong>Eye Color:</strong> <%= character.appearance && character.appearance.eyeColor ? character.appearance.eyeColor : "N/A" %></p>
+        <p class="card-text"><strong>Hair Color:</strong> <%= character.appearance && character.appearance.hairColor ? character.appearance.hairColor : "N/A" %></p>
+        <p class="card-text"><strong>Group Affiliation:</strong> <%= character.connections && character.connections.groupAffiliation ? character.connections.groupAffiliation : "N/A" %></p>
+    </div>
+</div>
+
+<%- include("Partials/footer"); -%>
